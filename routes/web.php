@@ -20,6 +20,8 @@ use App\Http\Controllers\StudentController;
 
 
 
+Route::get('/', [StudentController::class, 'index']);
+
 Route::get('/students', [StudentController::class, 'index']);
 
 Route::get('/add-students', [StudentController::class, 'create']);

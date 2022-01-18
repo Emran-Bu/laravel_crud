@@ -17,8 +17,21 @@ class StudentController extends Controller
      */
     public function index()
     {
-        // index file
-        return view('students.index');
+        $students = Student::all();
+
+        if (empty($students)) {
+            session()->flash('message', 'No Any Students Found.');
+
+            session()->flash('type', 'danger');
+
+            session()->flash('noStudent');
+
+            return view('students.index');
+        }
+
+        return view('students.index', ['students' => $students]);
+                        // or
+        // return view('students.index', compact('students'));
     }
 
     /**
@@ -73,7 +86,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        session()->flash('message', 'Students Added Successfully');
+        session()->flash('message', 'Students Added Successfully.');
         session()->flash('type', 'success');
 
         return redirect()->back();

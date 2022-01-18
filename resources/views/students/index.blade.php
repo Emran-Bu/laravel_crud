@@ -8,10 +8,51 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Laravel 8 CRUD
+                        <h4 class="p-0 m-0">Laravel 8 CRUD
                             <a class="btn btn-primary float-end" href="{{ url('add-students') }}">Add Students</a>
                         </h4>
                     </div>
+
+                    @if(session('noStudent'))
+
+                        @if(session('message'))
+                            <div class="text-center mt-3 alert alert-{{ session('type') }}">{{ session('message') }}</div>
+                        @endif
+
+                    @else
+
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Course</th>
+                                    <th>Image</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($students as $student)
+                                    <tr>
+                                        <td>{{ $student->id }}</td>
+
+                                        <td>{{ $student->name }}</td>
+
+                                        <td>{{ $student->course }}</td>
+
+                                        <td><img src="{{ asset('uploads/students/' . $student->image) }}" alt="image" class="" width="100px" height="70px"></td>
+
+                                        <td>Edit</td>
+
+                                        <td>Delete</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
