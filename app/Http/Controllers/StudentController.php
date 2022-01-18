@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Student;
+
 class StudentController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        // index file
         return view('students.index');
     }
 
@@ -24,7 +26,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        // create file
         return view('students.create');
     }
 
@@ -36,7 +38,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // submitted form add students
+        // $student = new Student();
+
+        // $student->name = $request->name;
+
+        // $student->course = $request->course;
+
+        echo date('d_m_Y') ;
     }
 
     /**
