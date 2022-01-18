@@ -146,8 +146,7 @@ class StudentController extends Controller
 
         $rule = [
             'name' => 'required',
-            'course' => 'required',
-            'image' => 'required'
+            'course' => 'required'
         ];
 
         $validation = Validator::make($request->all(), $rule);
@@ -157,10 +156,11 @@ class StudentController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $destination = 'uploads/students' . $student->image;
+            $destination = 'uploads/students/' . $student->image;
 
             if (File::exists($destination)) {
                 File::delete($destination);
+                // unlink($destination);
             }
 
             $file = $request->file('image');

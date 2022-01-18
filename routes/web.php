@@ -35,4 +35,4 @@ Route::post('/add-students', [StudentController::class, 'store']);
 Route::get('/edit-student/{id}', [StudentController::class, 'edit']);
 
 // update single student data
-Route::post('/update-student/{id}', [StudentController::class, 'update']);
+Route::put('/update-student/{id}', [StudentController::class, 'update']);

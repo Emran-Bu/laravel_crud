@@ -23,7 +23,7 @@ Laravel | CRUD | Edit
                         <div class="text-center alert alert-{{ session('type') }}">{{ session('message') }}</div>
                     @endif
 
-                    <form action="{{ url('update-student' . $student->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('update-student/' . $student->id) }}" method="post" enctype="multipart/form-data">
 
                         {{-- @csrf --}}
 
@@ -55,12 +55,8 @@ Laravel | CRUD | Edit
 
                         <div class="form-group mb-3">
                             <label for="">Student Profile Image</label>
-                            <input type="file" name="image" class="form-control @error('image') is-invalid @endError">
-                            @error('image')
-                                <span class="text-danger fst-italic">
-                                    {{ $message }}
-                                </span>
-                            @enderror
+                            <input type="file" name="image" class="form-control">
+
                             <img src="{{ asset('uploads/students/' . $student->image) }}" alt="Image" width="70px" height="70px" class="mt-2">
                         </div>
 
