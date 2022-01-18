@@ -15,12 +15,16 @@
                 </div>
 
                 <div class="card-body">
-                    
+
                     @if(session('message'))
                         <div class="text-center alert alert-{{ session('type') }}">{{ session('message') }}</div>
                     @endif
 
                     <form action="{{ url('add-students') }}" method="post" enctype="multipart/form-data">
+
+                        {{-- @csrf --}}
+
+                        {{-- or --}}
 
                         {{ csrf_field() }}
 

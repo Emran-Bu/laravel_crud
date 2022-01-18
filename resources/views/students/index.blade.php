@@ -44,9 +44,28 @@
 
                                         <td><img src="{{ asset('uploads/students/' . $student->image) }}" alt="image" class="" width="100px" height="70px"></td>
 
-                                        <td>Edit</td>
+                                        <td><a href="{{ url('edit-student/' . $student->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
 
-                                        <td>Delete</td>
+                                        <td>
+                                            {{-- <a href="{{ url('delete-student/' . $student->id) }}" class="btn btn-danger btn-sm">Delete</a> --}}
+
+                                                {{-- or --}}
+
+                                            <form action="{{ url('delete-student/' . $student->id) }}" method="post">
+
+                                                {{ csrf_field() }}
+
+                                                {{-- or --}}
+
+                                                {{-- @csrf --}}
+
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+
+                                            </form>
+                                        </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -19,11 +19,17 @@ use App\Http\Controllers\StudentController;
 // });
 
 
-
+// main page
 Route::get('/', [StudentController::class, 'index']);
 
+// index page
 Route::get('/students', [StudentController::class, 'index']);
 
+// add student page or create page
 Route::get('/add-students', [StudentController::class, 'create']);
 
+// store or save student
 Route::post('/add-students', [StudentController::class, 'store']);
+
+// edit or update student
+Route::post('/edit-student', [StudentController::class, 'edit']);
