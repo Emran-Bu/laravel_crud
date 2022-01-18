@@ -36,3 +36,11 @@ Route::get('/edit-student/{id}', [StudentController::class, 'edit']);
 
 // update single student data
 Route::put('/update-student/{id}', [StudentController::class, 'update']);
+
+// destroy or delete single student data
+Route::get('/delete-student/{id}', [StudentController::class, 'destroy']);
+
+    // or
+
+// destroy or delete single student data
+Route::delete('/delete-student/{id}', [StudentController::class, 'destroy']);

@@ -15,19 +15,11 @@
                         </h4>
                     </div>
 
-                    @if(session('noStudent'))
-
-                        @if(session('message'))
-                            <div class="text-center mt-3 alert alert-{{ session('type') }}">{{ session('message') }}</div>
-                        @endif
-
-                    @else
-
                     <div class="card-body">
                         @if(session('message'))
                             <div class="text-center alert alert-{{ session('type') }}">{{ session('message') }}</div>
                         @endif
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -52,7 +44,7 @@
                                         <td><a href="{{ url('edit-student/' . $student->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
 
                                         <td>
-                                            {{-- <a href="{{ url('delete-student/' . $student->id) }}" class="btn btn-danger btn-sm">Delete</a> --}}
+                                            {{-- <a onclick="return confirm('Are You Sure Delete This Student.')" href="{{ url('delete-student/' . $student->id) }}" class="btn btn-danger btn-sm">Delete</a> --}}
 
                                                 {{-- or --}}
 
@@ -60,13 +52,9 @@
 
                                                 {{ csrf_field() }}
 
-                                                {{-- or --}}
-
-                                                {{-- @csrf --}}
-
                                                 @method('DELETE')
 
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                <button onclick="return confirm('Are You Sure Delete This Student.')" type="submit" class="btn btn-sm btn-danger">Delete</button>
 
                                             </form>
                                         </td>
@@ -76,7 +64,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @endif
                 </div>
             </div>
         </div>
