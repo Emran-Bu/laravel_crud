@@ -31,5 +31,8 @@ Route::get('/add-students', [StudentController::class, 'create']);
 // store or save student
 Route::post('/add-students', [StudentController::class, 'store']);
 
-// edit or update student
-Route::post('/edit-student', [StudentController::class, 'edit']);
+// edit student page with single student data show
+Route::get('/edit-student/{id}', [StudentController::class, 'edit']);
+
+// update single student data
+Route::post('/update-student/{id}', [StudentController::class, 'update']);

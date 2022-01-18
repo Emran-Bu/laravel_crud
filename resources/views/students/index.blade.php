@@ -3,6 +3,8 @@
 @section('title')
     Laravel | CRUD
 @endsection
+
+@section('content')
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
@@ -22,6 +24,9 @@
                     @else
 
                     <div class="card-body">
+                        @if(session('message'))
+                            <div class="text-center alert alert-{{ session('type') }}">{{ session('message') }}</div>
+                        @endif
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -76,3 +81,5 @@
             </div>
         </div>
     </div>
+
+    @endsection

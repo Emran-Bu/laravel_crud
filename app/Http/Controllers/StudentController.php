@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Student;
-
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -86,7 +86,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        session()->flash('message', 'Students Added Successfully.');
+        session()->flash('message', 'Student Added Successfully.');
         session()->flash('type', 'success');
 
         return redirect()->back();
@@ -112,7 +112,18 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        // edit student
+        $student = Student::find($id);
+
+        if (empty($student)) {
+            session()->flash('message', 'No Students Found.');
+
+            session()->flash('type', 'danger');
+
+            return redirect()->back();
+        }
+
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -124,7 +135,48 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // update student
+        $student = Student::find($id);
+
+        $student->name = $request->name;
+
+        $student->course = $request->course;
+
+        // validation
+
+        $rule = [
+            'name' => 'required',
+            'course' => 'required',
+            'image' => 'required'
+        ];
+
+        $validation = Validator::make($request->all(), $rule);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        if ($request->hasFile('image')) {
+            $destination = 'uploads/students' . $student->image;
+
+            if (File::exists($destination)) {
+                File::delete($destination);
+            }
+
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = date('d_m_Y_i_s') . '.' . $extension;
+            $file->move('uploads/students', $filename);
+
+            $student->image = $filename;
+        }
+
+        $student->update();
+
+        session()->flash('message', 'Student Updated Successfully.');
+        session()->flash('type', 'success');
+
+        return redirect()->back();
     }
 
     /**

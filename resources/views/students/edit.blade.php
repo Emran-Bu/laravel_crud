@@ -1,7 +1,8 @@
 @extends('students.layouts')
-
+{{-- if you not access in public folder write base tag and access in public folder --}}
+{{-- <base href="/public"> --}}
 @section('title')
-    Laravel | CRUD | Create
+Laravel | CRUD | Edit
 @endsection
 
 @section('content')
@@ -11,7 +12,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4>Add Student with Image
+                    <h4>Edit Student with Image
                         <a class="btn btn-danger float-end" href="{{ url('students') }}">Back</a>
                     </h4>
                 </div>
@@ -22,7 +23,7 @@
                         <div class="text-center alert alert-{{ session('type') }}">{{ session('message') }}</div>
                     @endif
 
-                    <form action="{{ url('add-students') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('update-student' . $student->id) }}" method="post" enctype="multipart/form-data">
 
                         {{-- @csrf --}}
 
@@ -30,9 +31,11 @@
 
                         {{ csrf_field() }}
 
+                        @method('put')
+
                         <div class="form-group mb-3">
                             <label for="">Student Name</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @endError" placeholder="Name..." value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @endError" value="{{ $student->name }}">
                             @error('name')
                                 <span class="fst-italic text-danger">
                                     {{ $message }}
@@ -42,7 +45,7 @@
 
                         <div class="form-group mb-3">
                             <label for="">Student Course</label>
-                            <input type="text" name="course" class="form-control @error('course') is-invalid @endError" placeholder="Course..." value="{{ old('course') }}">
+                            <input type="text" name="course" class="form-control @error('course') is-invalid @endError" value="{{ $student->course }}">
                             @error('course')
                                 <span class="text-danger fst-italic">
                                     {{ $message }}
@@ -58,10 +61,11 @@
                                     {{ $message }}
                                 </span>
                             @enderror
+                            <img src="{{ asset('uploads/students/' . $student->image) }}" alt="Image" width="70px" height="70px" class="mt-2">
                         </div>
 
                         <div class="form-group mb-3 d-grid">
-                            <input type="submit" class="btn btn-primary" value="Save Button">
+                            <input type="submit" class="btn btn-primary" value="Update Button">
                         </div>
                     </form>
                 </div>
