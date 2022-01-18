@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Student;
 
+use Illuminate\Support\Facades\Validator;
+
 class StudentController extends Controller
 {
     /**
@@ -39,13 +41,43 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         // submitted form add students
-        // $student = new Student();
 
-        // $student->name = $request->name;
+        $student = new Student();
 
-        // $student->course = $request->course;
+        $student->name = $request->name;
 
-        echo date('d_m_Y') ;
+        $student->course = $request->course;
+
+        // validation
+
+        $rule = [
+            'name' => 'required',
+            'course' => 'required',
+            'image' => 'required'
+        ];
+
+        $validation = Validator::make($request->all(), $rule);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = date('d_m_Y_i_s') . '.' . $extension;
+            $file->move('uploads/students', $filename);
+
+            $student->image = $filename;
+        }
+
+        $student->save();
+
+        session()->flash('message', 'Students Added Successfully');
+        session()->flash('type', 'success');
+
+        return redirect()->back();
+
     }
 
     /**
